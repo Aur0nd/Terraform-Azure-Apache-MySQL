@@ -4,8 +4,11 @@ variable "location"{
 
 variable "zones" {
     type = list(string)
-    default = []
 }
 variable "resource_prefix" {
     type = map(string)
+}
+
+variable "envi" {
+    type = string 
 }
