@@ -15,7 +15,7 @@ terraform apply
 The output of terraform shows the public ip
 
 ```
-ssh avalanche@PUBLIC_IP_HERE -i mykey
+ssh avalanche@PUBLIC_IP_HERE -i mykey -p 50001
 ```
 
 # Install MySQL client & Connect to MySQL from virtual machine
