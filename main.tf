@@ -7,6 +7,10 @@ provider "random" {
   version = "2.2"
 }
 
+data "azurerm_subscription" "current" {
+}
+
+
 resource "azurerm_resource_group" "web-resource-group" {
     name                    = "${var.resource_prefix["key1"]}-resource-group"
     location                = var.location
@@ -273,6 +277,12 @@ resource "random_string" "random" {
   number  = false
 }
 
+  resource "random_password" "password" {
+        length = 16
+        special = true
+        override_special = "_%@"
+  }
+
 resource "azurerm_mysql_server" "web-mysql-server" {
     name                = "database${random_string.random.result}" #Must be unique 
     location            = var.location
@@ -291,13 +301,7 @@ resource "azurerm_mysql_server" "web-mysql-server" {
     }
     
     
-  resource "random_password" "password" {
-        length = 16
-        special = true
-        override_special = "_%@"
-  }
 
-    
     
     administrator_login             = "mysqladmin"
     administrator_login_password    = random_password.password.result
