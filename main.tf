@@ -289,8 +289,18 @@ resource "azurerm_mysql_server" "web-mysql-server" {
         backup_retention_days = 7
         geo_redundant_backup  = length(var.envi) == 0 ? "Disabled" : "Enabled"    #Enable if in PROD                 
     }
+    
+    
+  resource "random_password" "password" {
+        length = 16
+        special = true
+        override_special = "_%@"
+  }
+
+    
+    
     administrator_login             = "mysqladmin"
-    administrator_login_password    = "124cAsf^a~p2f"
+    administrator_login_password    = random_password.password.result
     version                         = "5.7"
     ssl_enforcement                 = "Enabled"
 }
